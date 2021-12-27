@@ -62,7 +62,9 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }
 
+// 覆盖率的源路径
 def coverageSourceDirs = ['src/main/java']
+// 依赖单元测试
 task jacocoTestReport(type: JacocoReport, dependsOn: "testDebugUnitTest") {
     group = "Reporting"
 
@@ -74,10 +76,10 @@ task jacocoTestReport(type: JacocoReport, dependsOn: "testDebugUnitTest") {
                        '**/*$ViewInjector*.*',
                        '**/BuildConfig.*',
                        '**/Manifest*.*']))
-//
-//
+
     additionalSourceDirs.from(files(coverageSourceDirs))
     sourceDirectories.from(files(coverageSourceDirs))
+    //执行的ec数据
     executionData files('../app/build/jacoco/testDebugUnitTest.exec')
 
     reports {
