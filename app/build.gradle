@@ -4,8 +4,7 @@ plugins {
 }
 
 jacoco {
-    toolVersion = "0.8.4"
-    reportsDir = file("$buildDir/customJacocoReportDir")
+    toolVersion = "0.8.2"
 }
 
 android {
@@ -63,13 +62,13 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }
 
-def coverageSourceDirs = ['src/test/java']
+def coverageSourceDirs = ['src/main/java']
 task jacocoTestReport(type: JacocoReport, dependsOn: "testDebugUnitTest") {
     group = "Reporting"
 
     description = "Generate Jacoco coverage reports"
 
-    classDirectories.from(fileTree(dir: '../app/build/intermediates/jacac/debugUnitTest/classes',
+    classDirectories.from(fileTree(dir: '../app/build/intermediates/javac/debug/classes',
             excludes: ['**/R.class',
                        '**/R$*.class',
                        '**/*$ViewInjector*.*',
@@ -88,11 +87,12 @@ task jacocoTestReport(type: JacocoReport, dependsOn: "testDebugUnitTest") {
     afterEvaluate {
         jacocoTestReport {
             classDirectories.from(files(classDirectories.files.collect {
-                fileTree(dir:  "../app/build/intermediates/javac/debugUnitTest/classes",
+                fileTree(dir:  "../app/build/intermediates/javac/debug/classes/com/example/jacoco",
                         exclude: [
                                 '**/*$*.*',
                         ])
             }))
+
         }
     }
 }
