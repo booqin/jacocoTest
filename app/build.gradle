@@ -79,7 +79,7 @@ task jacocoTestReport(type: JacocoReport, dependsOn: "testDebugUnitTest") {
 
     additionalSourceDirs.from(files(coverageSourceDirs))
     sourceDirectories.from(files(coverageSourceDirs))
-    //执行的ec数据
+    //exec数据路径，记录jacoco采集的数据
     executionData files('../app/build/jacoco/testDebugUnitTest.exec')
 
     reports {
@@ -96,5 +96,29 @@ task jacocoTestReport(type: JacocoReport, dependsOn: "testDebugUnitTest") {
             }))
 
         }
+    }
+}
+
+// 仅生成报告
+task jacocoTestReportOnly(type: JacocoReport){
+    group = "Reporting"
+
+    description = "Generate Jacoco coverage reports"
+
+    classDirectories.from(fileTree(dir: '../app/build/intermediates/javac/debug/classes',
+            excludes: ['**/R.class',
+                       '**/R$*.class',
+                       '**/*$ViewInjector*.*',
+                       '**/BuildConfig.*',
+                       '**/Manifest*.*']))
+
+    additionalSourceDirs.from(files(coverageSourceDirs))
+    sourceDirectories.from(files(coverageSourceDirs))
+    //exec数据路径，记录jacoco采集的数据
+    executionData files('../app/build/code-coverage/coverage.ec')
+
+    reports {
+        xml.enabled = true
+        html.enabled = true
     }
 }
