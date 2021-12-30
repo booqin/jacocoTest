@@ -1,12 +1,12 @@
 package com.example.jacoco;
 
-import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity {
 
     private JojoDemo mJojoDemo = new JojoDemo();
+    private KJacocoMain mKJacocoMain = new KJacocoMain();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.title).setOnClickListener(v -> {
             mJojoDemo.getName();
             mJojoDemo.dos();
+            mKJacocoMain.getName();
         });
 
         findViewById(R.id.bt).setOnClickListener(v -> {
