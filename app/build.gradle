@@ -1,10 +1,5 @@
 plugins {
     id 'com.android.application'
-    id 'jacoco'
-}
-
-jacoco {
-    toolVersion = "0.8.2"
 }
 
 android {
@@ -30,7 +25,6 @@ android {
         debug{
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            testCoverageEnabled = true
         }
     }
     compileOptions {
@@ -64,65 +58,4 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-}
-
-// 覆盖率的源路径
-def coverageSourceDirs = ['src/main/java']
-// 依赖单元测试
-task jacocoTestReport(type: JacocoReport, dependsOn: "testDebugUnitTest") {
-    group = "Reporting"
-
-    description = "Generate Jacoco coverage reports"
-
-    classDirectories.from(fileTree(dir: '../app/build/intermediates/javac/debug/classes',
-            excludes: ['**/R.class',
-                       '**/R$*.class',
-                       '**/*$ViewInjector*.*',
-                       '**/BuildConfig.*',
-                       '**/Manifest*.*']))
-
-    additionalSourceDirs.from(files(coverageSourceDirs))
-    sourceDirectories.from(files(coverageSourceDirs))
-    //exec数据路径，记录jacoco采集的数据
-    executionData files('../app/build/jacoco/testDebugUnitTest.exec')
-
-    reports {
-        xml.enabled = true
-        html.enabled = true
-    }
-    afterEvaluate {
-        jacocoTestReport {
-            classDirectories.from(files(classDirectories.files.collect {
-                fileTree(dir:  "../app/build/intermediates/javac/debug/classes/com/example/jacoco",
-                        exclude: [
-                                '**/*$*.*',
-                        ])
-            }))
-
-        }
-    }
-}
-
-// 仅生成报告
-task jacocoTestReportOnly(type: JacocoReport){
-    group = "Reporting"
-
-    description = "Generate Jacoco coverage reports"
-
-    classDirectories.from(fileTree(dir: '../app/build/intermediates/javac/debug/classes',
-            excludes: ['**/R.class',
-                       '**/R$*.class',
-                       '**/*$ViewInjector*.*',
-                       '**/BuildConfig.*',
-                       '**/Manifest*.*']))
-
-    additionalSourceDirs.from(files(coverageSourceDirs))
-    sourceDirectories.from(files(coverageSourceDirs))
-    //exec数据路径，记录jacoco采集的数据
-    executionData files('../app/build/code-coverage/coverage.ec')
-
-    reports {
-        xml.enabled = true
-        html.enabled = true
-    }
 }
