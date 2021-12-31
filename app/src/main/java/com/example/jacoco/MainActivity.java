@@ -1,5 +1,7 @@
 package com.example.jacoco;
 
+import org.jacoco.agent.rt.CodeCoverageManager;
+
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,12 +15,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         findViewById(R.id.title).setOnClickListener(v -> {
-            mJojoDemo.getName();
-            mJojoDemo.dos();
+            funC();
         });
 
         findViewById(R.id.bt).setOnClickListener(v -> {
-            JacocoUtils.generateEcFile(true);
+            CodeCoverageManager.generateCoverageFile();
         });
+    }
+
+    private void doSomething(){
+        mJojoDemo.getName();
+        mJojoDemo.dos();
+    }
+
+    private void funC(){
+        mJojoDemo.getName();
+        mJojoDemo.dos();
     }
 }

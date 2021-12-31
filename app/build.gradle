@@ -1,10 +1,6 @@
 plugins {
     id 'com.android.application'
-    id 'jacoco'
-}
-
-jacoco {
-    toolVersion = "0.8.2"
+    id 'com.ttp.and_jacoco'
 }
 
 android {
@@ -13,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.jacoco"
-        minSdkVersion 14
+        minSdkVersion 16
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -64,65 +60,36 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    debugImplementation "com.github.ttpai.AndJacoco:rt:0.0.5"
+    releaseImplementation "com.github.ttpai.AndJacoco:rt-no-op:0.0.5"
 }
 
-// 覆盖率的源路径
-def coverageSourceDirs = ['src/main/java']
-// 依赖单元测试
-task jacocoTestReport(type: JacocoReport, dependsOn: "testDebugUnitTest") {
-    group = "Reporting"
-
-    description = "Generate Jacoco coverage reports"
-
-    classDirectories.from(fileTree(dir: '../app/build/intermediates/javac/debug/classes',
-            excludes: ['**/R.class',
-                       '**/R$*.class',
-                       '**/*$ViewInjector*.*',
-                       '**/BuildConfig.*',
-                       '**/Manifest*.*']))
-
-    additionalSourceDirs.from(files(coverageSourceDirs))
-    sourceDirectories.from(files(coverageSourceDirs))
-    //exec数据路径，记录jacoco采集的数据
-    executionData files('../app/build/jacoco/testDebugUnitTest.exec')
-
-    reports {
-        xml.enabled = true
-        html.enabled = true
+jacocoCoverageConfig {
+    jacocoEnable true //开关
+    branchName 'master'//要对比的分支名
+    host=""//下载服务host
+    execDir "${project.buildDir.absolutePath}/outputs/coverage"//ec 下载存放路径
+    sourceDirectories = getAllJavaDir() //源码路径
+    classDirectories = ["${rootProject.projectDir.absolutePath}/app/classes"] //classes 路径
+    gitPushShell="${project.projectDir}/shell/gitPushShell.sh" //提交git 命令
+    copyClassShell="${project.projectDir}/shell/pullDiffClass.sh" //copy classes 命令
+    includes = ['com.example.jacoco'] //要 包含的class 包名,数组
+    excludeClass = { // return true 表示要排除的class
+//        println("exclude it=${it}")
+        return false
     }
-    afterEvaluate {
-        jacocoTestReport {
-            classDirectories.from(files(classDirectories.files.collect {
-                fileTree(dir:  "../app/build/intermediates/javac/debug/classes/com/example/jacoco",
-                        exclude: [
-                                '**/*$*.*',
-                        ])
-            }))
-
-        }
+    excludeMethod = {//return true 表示要排除此方法
+        println("excludeMethod it=${it}")
+        return false
     }
 }
 
-// 仅生成报告
-task jacocoTestReportOnly(type: JacocoReport){
-    group = "Reporting"
-
-    description = "Generate Jacoco coverage reports"
-
-    classDirectories.from(fileTree(dir: '../app/build/intermediates/javac/debug/classes',
-            excludes: ['**/R.class',
-                       '**/R$*.class',
-                       '**/*$ViewInjector*.*',
-                       '**/BuildConfig.*',
-                       '**/Manifest*.*']))
-
-    additionalSourceDirs.from(files(coverageSourceDirs))
-    sourceDirectories.from(files(coverageSourceDirs))
-    //exec数据路径，记录jacoco采集的数据
-    executionData files('../app/build/code-coverage/coverage.ec')
-
-    reports {
-        xml.enabled = true
-        html.enabled = true
+def ArrayList<String> getAllJavaDir() {
+    //获取所有module 的源码路径
+    Set<Project> projects = project.rootProject.subprojects
+    List<String> javaDir = new ArrayList<>(projects.size())
+    projects.forEach {
+        javaDir.add("$it.projectDir/src/main/java")
     }
+    return javaDir
 }
