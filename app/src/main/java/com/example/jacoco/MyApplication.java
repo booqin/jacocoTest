@@ -17,6 +17,6 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        CodeCoverageManager.init(this, getApplicationInfo().name, 1);
+        CodeCoverageManager.init(this, null);
     }
 }
