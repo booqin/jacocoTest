@@ -2,6 +2,7 @@ package com.example.jacoco;
 
 import org.jacoco.agent.rt.CodeCoverageManager;
 
+import android.util.Log;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         findViewById(R.id.title).setOnClickListener(v -> {
-            funA();
+            funB();
         });
 
         findViewById(R.id.bt).setOnClickListener(v -> {
@@ -28,13 +29,9 @@ public class MainActivity extends AppCompatActivity {
         mJojoDemo.dos();
     }
 
-    private void funC(){
-        mJojoDemo.getName();
-        mJojoDemo.dos();
+    private void funB(){
+        int a = 1;
+        Log.d("BQ", ""+a);
     }
 
-    private void funA(){
-        mJojoDemo.getName();
-        mJojoDemo.dos();
-    }
 }
