@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         findViewById(R.id.title).setOnClickListener(v -> {
-            funC();
+            funA();
         });
 
         findViewById(R.id.bt).setOnClickListener(v -> {
@@ -29,6 +29,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void funC(){
+        mJojoDemo.getName();
+        mJojoDemo.dos();
+    }
+
+    private void funA(){
         mJojoDemo.getName();
         mJojoDemo.dos();
     }
