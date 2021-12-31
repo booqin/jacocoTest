@@ -59,8 +59,8 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-    debugImplementation "com.github.ttpai.AndJacoco:rt:0.0.5"
-    releaseImplementation "com.github.ttpai.AndJacoco:rt-no-op:0.0.5"
+    debugImplementation "com.github.ttpai.AndJacoco:rt:0.0.6"
+    releaseImplementation "com.github.ttpai.AndJacoco:rt-no-op:0.0.6"
 }
 
 jacocoCoverageConfig {
