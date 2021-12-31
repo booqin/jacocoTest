@@ -37,4 +37,8 @@ public class MainActivity extends AppCompatActivity {
     private String getJacoco(){
         return "jacoco";
     }
+
+    private void funD(){
+        getJacoco();
+    }
 }
