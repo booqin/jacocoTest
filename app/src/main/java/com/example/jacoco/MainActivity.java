@@ -34,4 +34,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d("BQ", ""+a);
     }
 
+    private String getJacoco(){
+        return "jacoco";
+    }
 }
