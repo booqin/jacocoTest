@@ -21,11 +21,13 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "host", "\"${jacocoCoverageConfig.host}\""
         }
 
         debug{
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "host", "\"${jacocoCoverageConfig.host}\""
         }
     }
     compileOptions {
@@ -66,7 +68,7 @@ dependencies {
 jacocoCoverageConfig {
     jacocoEnable true //开关
     branchName 'master'//要对比的分支名
-    host=""//下载服务host
+    host="http://192.168.222.185:8070"//下载服务host
     execDir "${project.buildDir.absolutePath}/outputs/coverage"//ec 下载存放路径
     sourceDirectories = getAllJavaDir() //源码路径
     classDirectories = ["${rootProject.projectDir.absolutePath}/app/classes"] //classes 路径

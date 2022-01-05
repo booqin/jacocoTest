@@ -17,6 +17,7 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        CodeCoverageManager.init(this, null);
+        CodeCoverageManager.init(this, BuildConfig.host);
+        CodeCoverageManager.uploadData();
     }
 }
