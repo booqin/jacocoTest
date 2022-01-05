@@ -1,8 +1,12 @@
 plugins {
     id 'com.android.application'
     id 'com.ttp.and_jacoco'
+    id 'jacoco'
 }
 
+jacoco {
+    toolVersion = "0.8.2"
+}
 
 jacocoCoverageConfig {
     jacocoEnable true //开关
@@ -96,4 +100,28 @@ def ArrayList<String> getAllJavaDir() {
         javaDir.add("$it.projectDir/src/main/java")
     }
     return javaDir
+}
+
+// 覆盖率的源路径
+def coverageSourceDirs = ['src/main/java']
+def javaClass = '/intermediates/javac/debug/classes/com/example/jacoco/MainActivity.class'
+def kotlinClass = '/tmp/kotlin-classes/debug/com/example/jacoco/KJacocoMain.class'
+// 仅生成报告
+task jacocoTestReportOnly(type: JacocoReport){
+    group = "Reporting"
+
+    description = "Generate Jacoco coverage reports"
+
+    classDirectories.from(fileTree(dir: "$buildDir",
+            includes: ['/intermediates/javac/debug/classes/com/example/jacoco/JacocoUtils.class', '/intermediates/javac/debug/classes/com/example/jacoco/MainActivity']))
+
+    additionalSourceDirs.from(files(coverageSourceDirs))
+    sourceDirectories.from(files(coverageSourceDirs))
+    //exec数据路径，记录jacoco采集的数据
+    executionData files('../app/code-coverage/coverage.ec')
+
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
 }
