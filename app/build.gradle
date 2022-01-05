@@ -3,6 +3,28 @@ plugins {
     id 'com.ttp.and_jacoco'
 }
 
+
+jacocoCoverageConfig {
+    jacocoEnable true //开关
+    branchName 'master'//要对比的分支名
+    host="http://192.168.222.185:8070"//下载服务host
+    execDir "${project.buildDir.absolutePath}/outputs/coverage"//ec 下载存放路径
+    sourceDirectories = getAllJavaDir() //源码路径
+    classDirectories = ["${rootProject.projectDir.absolutePath}/app/classes"] //classes 路径
+    gitPushShell="${project.projectDir}/shell/gitPushShell.sh" //提交git 命令
+    copyClassShell="${project.projectDir}/shell/pullDiffClass.sh" //copy classes 命令
+    includes = ['com.example.jacoco'] //要 包含的class 包名,数组
+    excludeClass = { // return true 表示要排除的class
+//        println("exclude it=${it}")
+        return false
+    }
+    excludeMethod = {//return true 表示要排除此方法
+        println("excludeMethod it=${it}")
+        return false
+    }
+}
+
+
 android {
     compileSdkVersion 28
     buildToolsVersion '28.0.3'
@@ -63,26 +85,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     debugImplementation "com.github.ttpai.AndJacoco:rt:0.0.6"
     releaseImplementation "com.github.ttpai.AndJacoco:rt-no-op:0.0.6"
-}
-
-jacocoCoverageConfig {
-    jacocoEnable true //开关
-    branchName 'master'//要对比的分支名
-    host="http://192.168.222.185:8070"//下载服务host
-    execDir "${project.buildDir.absolutePath}/outputs/coverage"//ec 下载存放路径
-    sourceDirectories = getAllJavaDir() //源码路径
-    classDirectories = ["${rootProject.projectDir.absolutePath}/app/classes"] //classes 路径
-    gitPushShell="${project.projectDir}/shell/gitPushShell.sh" //提交git 命令
-    copyClassShell="${project.projectDir}/shell/pullDiffClass.sh" //copy classes 命令
-    includes = ['com.example.jacoco'] //要 包含的class 包名,数组
-    excludeClass = { // return true 表示要排除的class
-//        println("exclude it=${it}")
-        return false
-    }
-    excludeMethod = {//return true 表示要排除此方法
-        println("excludeMethod it=${it}")
-        return false
-    }
+    implementation 'com.squareup.okhttp3:okhttp:3.14.9'
 }
 
 def ArrayList<String> getAllJavaDir() {
