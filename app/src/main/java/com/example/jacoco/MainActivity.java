@@ -17,6 +17,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         findViewById(R.id.title).setOnClickListener(v -> {
             funB();
+            funD();
+            funE();
         });
 
         findViewById(R.id.bt).setOnClickListener(v -> {
@@ -40,5 +42,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void funD(){
         getJacoco();
+    }
+
+    private void funE(){
+        Log.d("BQ", "11");
     }
 }

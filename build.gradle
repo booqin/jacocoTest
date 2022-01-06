@@ -4,12 +4,14 @@ buildscript {
         google()
         mavenCentral()
         maven { url 'https://jitpack.io' }
+        maven { url "http://114.55.28.214:8085/nexus/content/repositories/releases/" }
+
     }
     dependencies {
         classpath "com.android.tools.build:gradle:4.0.1"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
-        classpath 'com.github.ttpai.AndJacoco:plugin:0.0.6'
+        classpath 'com.qtshe.mobile:jacoco:1.0.0'
     }
 
 }

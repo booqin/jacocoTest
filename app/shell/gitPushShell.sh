@@ -3,9 +3,7 @@ oriBran=$(git name-rev --name-only HEAD)
 echo $oriBran #remotes/origin/main_DEALER-2932
 
 
-array=(${oriBran//// })
-length=${#array[@]} # 数组长度
-gitBran=${array[length-1]} # 本地分支
+gitBran=$(git symbolic-ref --short -q HEAD) # 本地分支
 echo "gitBran=$gitBran"
 
 git stash clear

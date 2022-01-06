@@ -1,6 +1,6 @@
 plugins {
     id 'com.android.application'
-    id 'com.ttp.and_jacoco'
+    id 'com.qts.jacoco'
 }
 
 
@@ -83,8 +83,8 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-    debugImplementation "com.github.ttpai.AndJacoco:rt:0.0.6"
-    releaseImplementation "com.github.ttpai.AndJacoco:rt-no-op:0.0.6"
+    debugImplementation "com.qtshe.mobile:AndJacoco-rt:1.0.0"
+    releaseImplementation "com.qtshe.mobile:AndJacoco-rt-no-op:1.0.0"
     implementation 'com.squareup.okhttp3:okhttp:3.14.9'
 }
 
