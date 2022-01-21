@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
             funB();
             funD();
             funE();
+            doSomething();
         });
 
         findViewById(R.id.bt).setOnClickListener(v -> {
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private void doSomething(){
         mJojoDemo.getName();
         mJojoDemo.dos();
+        (new KDemo()).down();
     }
 
     private void funB(){
