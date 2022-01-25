@@ -102,7 +102,7 @@ def ArrayList<String> getAllJavaDir() {
 }
 
 task demo(){
-    if("No local changes to save".equals("git stash".execute().text)){
+    if("No local changes to save" == "git stash".execute().text){
         println("done")
     }else {
         println("git stash".execute().text.trim())
