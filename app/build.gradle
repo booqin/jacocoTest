@@ -102,9 +102,10 @@ def ArrayList<String> getAllJavaDir() {
 }
 
 task demo(){
-    if("git stash".execute().text == "No local changes to save"){
+    val r = "git stash".execute().text
+    if(r == "No local changes to save"){
         println("done")
     }else {
-        println("bb:"+"git stash".execute().text.trim()+"---end")
+        println("bb:"+r+"---end")
     }
 }
