@@ -14,9 +14,11 @@ git checkout -b $gitBran origin/$gitBran
 git checkout -f $gitBran
 
 echo "start pull--"
-git pull
+git pull origin/$gitBran
 
 echo "start copy: cp -r "${workDir}/app/classes" $outDir "
 cp -r "${workDir}/app/classes" $outDir
 
 echo "copy over --"
+
+git checkout $oriBran
