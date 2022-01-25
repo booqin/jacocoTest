@@ -49,4 +49,8 @@ public class MainActivity extends AppCompatActivity {
     private void funE(){
         Log.d("BQ", "11");
     }
+
+    private void funF(){
+        Log.d("BQ", "12");
+    }
 }
