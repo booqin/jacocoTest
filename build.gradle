@@ -14,7 +14,7 @@ buildscript {
         // in the individual module build.gradle files
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
-        classpath 'com.qtshe.mobile:jacoco:1.0.12'
+        classpath 'com.qtshe.mobile:jacoco:1.0.13'
     }
 
 }
