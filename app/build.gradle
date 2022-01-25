@@ -105,6 +105,6 @@ task demo(){
     if("No local changes to save".equals("git stash".execute().text)){
         println("done")
     }else {
-        println("git stash".execute().text)
+        println("git stash".execute().text.trim())
     }
 }
