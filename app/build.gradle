@@ -102,8 +102,8 @@ def ArrayList<String> getAllJavaDir() {
 }
 
 task demo(){
-    String r = "git stash".execute().text.trim()
-    if(r == "No local changes to save"){
+    String r = ""
+    if("git stash".execute().text.trim() == "No local changes to save"){
         println("done")
     }else {
         println("bb:"+r+"---end")
