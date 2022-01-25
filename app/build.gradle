@@ -7,27 +7,6 @@ plugins {
 }
 
 
-jacocoCoverageConfig {
-    jacocoEnable true //开关
-    branchName 'master'//要对比的分支名
-    host="http://192.168.222.185:8085"//下载服务host
-    execDir "${project.buildDir.absolutePath}/outputs/coverage"//ec 下载存放路径
-    sourceDirectories = getAllJavaDir() //源码路径
-    classDirectories = ["${rootProject.projectDir.absolutePath}/app/classes"] //classes 路径
-    gitCommitShell="${project.projectDir}/shell/gitCommitShell.sh" //提交git 命令
-    copyClassShell="${project.projectDir}/shell/pullDiffClass.sh" //copy classes 命令
-    includes = ['com.example.jacoco'] //要 包含的class 包名,数组
-    excludeClass = { // return true 表示要排除的class
-//        println("exclude it=${it}")
-        return false
-    }
-    excludeMethod = {//return true 表示要排除此方法
-        println("excludeMethod it=${it}")
-        return false
-    }
-}
-
-
 android {
     compileSdkVersion 28
     buildToolsVersion '28.0.3'
@@ -78,6 +57,28 @@ android {
 //    }
 //}
 
+jacocoCoverageConfig {
+    jacocoEnable true //开关
+    branchName 'master'//要对比的分支名
+    host="http://192.168.222.185:8085"//下载服务host
+    execDir "${project.buildDir.absolutePath}/outputs/coverage"//ec 下载存放路径
+    sourceDirectories = getAllJavaDir() //源码路径
+    classDirectories = ["${rootProject.projectDir.absolutePath}/app/classes"] //classes 路径
+    gitCommitShell="${project.projectDir}/shell/gitCommitShell.sh" //提交git 命令
+    copyClassShell="${project.projectDir}/shell/pullDiffClass.sh" //copy classes 命令
+    includes = ['com.example.jacoco'] //要 包含的class 包名,数组
+    excludeClass = { // return true 表示要排除的class
+//        println("exclude it=${it}")
+        return false
+    }
+    excludeMethod = {//return true 表示要排除此方法
+        println("excludeMethod it=${it}")
+        return false
+    }
+    ecVersion = getLocalEcVersion()
+}
+
+
 dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.2.0'
@@ -86,8 +87,8 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-    debugImplementation "com.qtshe.mobile:AndJacoco-rt:1.0.0"
-    releaseImplementation "com.qtshe.mobile:AndJacoco-rt-no-op:1.0.0"
+    debugImplementation "com.qtshe.mobile:AndJacoco-rt:1.1.1"
+    releaseImplementation "com.qtshe.mobile:AndJacoco-rt-no-op:1.1.1"
     implementation 'com.squareup.okhttp3:okhttp:3.14.9'
 }
 
@@ -99,4 +100,8 @@ def ArrayList<String> getAllJavaDir() {
         javaDir.add("$it.projectDir/src/main/java")
     }
     return javaDir
+}
+
+def getLocalEcVersion(){
+    return "git symbolic-ref --short -q HEAD".execute().text.trim()+2
 }
