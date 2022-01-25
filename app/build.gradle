@@ -14,7 +14,7 @@ jacocoCoverageConfig {
     execDir "${project.buildDir.absolutePath}/outputs/coverage"//ec 下载存放路径
     sourceDirectories = getAllJavaDir() //源码路径
     classDirectories = ["${rootProject.projectDir.absolutePath}/app/classes"] //classes 路径
-    gitPushShell="${project.projectDir}/shell/gitPushShell.sh" //提交git 命令
+    gitCommitShell="${project.projectDir}/shell/gitCommitShell.sh" //提交git 命令
     copyClassShell="${project.projectDir}/shell/pullDiffClass.sh" //copy classes 命令
     includes = ['com.example.jacoco'] //要 包含的class 包名,数组
     excludeClass = { // return true 表示要排除的class
